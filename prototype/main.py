@@ -14,19 +14,20 @@ from assessment.engine import AssessmentEngine, create_default_lead_magnet_types
 from assessment.questionnaire import Questionnaire, create_default_questionnaire
 from generator.generator import LeadMagnetGenerator, create_default_templates
 from deployment.deployment import DeploymentManager
+from assessment.ai_agent import ConversationalAssessmentAgent
 
 
 class LeadMagnetPlatform:
     """
     Main platform class that integrates all components.
-    
+
     This class provides a simplified API for the entire lead magnet platform.
     """
-    
+
     def __init__(self, base_url: str = "https://leadmagnet.example.com"):
         """
         Initialize the lead magnet platform.
-        
+
         Args:
             base_url: Base URL for the lead magnet service
         """
@@ -35,24 +36,24 @@ class LeadMagnetPlatform:
         self.questionnaire = create_default_questionnaire()
         self.generator = LeadMagnetGenerator(create_default_templates())
         self.deployment_manager = DeploymentManager(base_url)
-        
+
         # Storage for businesses and lead magnets (in a real implementation, this would be a database)
         self.businesses = {}
         self.lead_magnets = {}
-    
+
     def register_business(self, business_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Register a new business.
-        
+
         Args:
             business_data: Dictionary containing business information
-            
+
         Returns:
             Dictionary containing the registered business information
         """
         # Generate a simple business ID (in a real implementation, this would be more robust)
         business_id = f"bus_{len(self.businesses) + 1}"
-        
+
         # Create business object
         business = {
             "id": business_id,
@@ -67,20 +68,20 @@ class LeadMagnetPlatform:
             "created_at": "2025-03-20T12:00:00Z",  # Example timestamp
             "lead_magnets": []
         }
-        
+
         # Store business
         self.businesses[business_id] = business
-        
+
         return business
-    
+
     def assess_business(self, business_id: str, responses: Dict[str, Any]) -> Dict[str, Any]:
         """
         Assess a business and recommend lead magnet types.
-        
+
         Args:
             business_id: ID of the business
             responses: Dictionary of questionnaire responses
-            
+
         Returns:
             Dictionary containing assessment results and recommendations
         """
@@ -88,25 +89,25 @@ class LeadMagnetPlatform:
         business = self.businesses.get(business_id)
         if not business:
             raise ValueError(f"Business with ID {business_id} not found")
-        
+
         # Process responses
         results = self.assessment_engine.process_responses(responses)
-        
+
         # Store assessment results with the business
         business["assessment_results"] = results
-        
+
         return results
-    
+
     def create_lead_magnet(self, business_id: str, lead_magnet_type_id: str,
                           template_id: Optional[str] = None) -> Dict[str, Any]:
         """
         Create a lead magnet for a business.
-        
+
         Args:
             business_id: ID of the business
             lead_magnet_type_id: ID of the lead magnet type
             template_id: Optional ID of the specific template to use
-            
+
         Returns:
             Dictionary containing the created lead magnet
         """
@@ -114,7 +115,7 @@ class LeadMagnetPlatform:
         business = self.businesses.get(business_id)
         if not business:
             raise ValueError(f"Business with ID {business_id} not found")
-        
+
         # Get business profile
         business_profile = {
             "business_name": business["name"],
@@ -124,7 +125,7 @@ class LeadMagnetPlatform:
             "brand_color": business["brand_color"],
             "logo_url": business["logo_url"]
         }
-        
+
         # Generate lead magnet
         lead_magnet = None
         if template_id:
@@ -133,34 +134,34 @@ class LeadMagnetPlatform:
         else:
             # Recommend and generate based on lead magnet type
             lead_magnet = self.generator.recommend_and_generate(lead_magnet_type_id, business_profile)
-        
+
         if not lead_magnet:
             raise ValueError(f"Failed to generate lead magnet with type {lead_magnet_type_id}")
-        
+
         # Generate a simple lead magnet ID (in a real implementation, this would be more robust)
         lead_magnet_id = f"lm_{len(self.lead_magnets) + 1}"
-        
+
         # Add metadata
         lead_magnet["id"] = lead_magnet_id
         lead_magnet["business_id"] = business_id
         lead_magnet["created_at"] = "2025-03-20T12:00:00Z"  # Example timestamp
-        
+
         # Store lead magnet
         self.lead_magnets[lead_magnet_id] = lead_magnet
-        
+
         # Add to business's lead magnets
         business["lead_magnets"].append(lead_magnet_id)
-        
+
         return lead_magnet
-    
+
     def deploy_lead_magnet(self, lead_magnet_id: str, settings: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
         Deploy a lead magnet.
-        
+
         Args:
             lead_magnet_id: ID of the lead magnet to deploy
             settings: Optional dictionary of deployment settings
-            
+
         Returns:
             Dictionary containing deployment information
         """
@@ -168,25 +169,25 @@ class LeadMagnetPlatform:
         lead_magnet = self.lead_magnets.get(lead_magnet_id)
         if not lead_magnet:
             raise ValueError(f"Lead magnet with ID {lead_magnet_id} not found")
-        
+
         # Get business ID
         business_id = lead_magnet["business_id"]
-        
+
         # Create deployment
         deployment = self.deployment_manager.create_deployment(lead_magnet_id, business_id, settings)
-        
+
         # Add deployment to lead magnet
         lead_magnet["deployment"] = deployment
-        
+
         return deployment
-    
+
     def get_installation_guide(self, lead_magnet_id: str) -> Dict[str, Any]:
         """
         Get installation guide for a lead magnet.
-        
+
         Args:
             lead_magnet_id: ID of the lead magnet
-            
+
         Returns:
             Dictionary containing installation instructions
         """
@@ -194,21 +195,21 @@ class LeadMagnetPlatform:
         lead_magnet = self.lead_magnets.get(lead_magnet_id)
         if not lead_magnet:
             raise ValueError(f"Lead magnet with ID {lead_magnet_id} not found")
-        
+
         # Check if lead magnet has been deployed
         if "deployment" not in lead_magnet:
             raise ValueError(f"Lead magnet with ID {lead_magnet_id} has not been deployed yet")
-        
+
         # Generate installation guide
         return self.deployment_manager.generate_installation_guide(lead_magnet["deployment"])
-    
+
     def get_lead_magnet_preview_url(self, lead_magnet_id: str) -> str:
         """
         Get preview URL for a lead magnet.
-        
+
         Args:
             lead_magnet_id: ID of the lead magnet
-            
+
         Returns:
             Preview URL
         """
@@ -216,25 +217,25 @@ class LeadMagnetPlatform:
         lead_magnet = self.lead_magnets.get(lead_magnet_id)
         if not lead_magnet:
             raise ValueError(f"Lead magnet with ID {lead_magnet_id} not found")
-        
+
         # Check if lead magnet has been deployed
         if "deployment" not in lead_magnet:
             raise ValueError(f"Lead magnet with ID {lead_magnet_id} has not been deployed yet")
-        
+
         return lead_magnet["deployment"]["public_url"]
-    
-    def process_customer_interaction(self, lead_magnet_id: str, 
+
+    def process_customer_interaction(self, lead_magnet_id: str,
                                     customer_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Process a customer interaction with a lead magnet.
-        
+
         This demonstrates the dual-layer personalization by customizing the lead magnet
         for a specific customer of the business.
-        
+
         Args:
             lead_magnet_id: ID of the lead magnet
             customer_data: Dictionary containing customer information
-            
+
         Returns:
             Dictionary containing the personalized lead magnet content
         """
@@ -242,13 +243,13 @@ class LeadMagnetPlatform:
         lead_magnet = self.lead_magnets.get(lead_magnet_id)
         if not lead_magnet:
             raise ValueError(f"Lead magnet with ID {lead_magnet_id} not found")
-        
+
         # Get business
         business_id = lead_magnet["business_id"]
         business = self.businesses.get(business_id)
         if not business:
             raise ValueError(f"Business with ID {business_id} not found")
-        
+
         # Get business profile
         business_profile = {
             "business_name": business["name"],
@@ -258,42 +259,73 @@ class LeadMagnetPlatform:
             "brand_color": business["brand_color"],
             "logo_url": business["logo_url"]
         }
-        
+
         # Get template ID
         template_id = lead_magnet["template_id"]
-        
+
         # Generate personalized lead magnet for this specific customer
         personalized_content = self.generator.generate_lead_magnet(
-            template_id, 
+            template_id,
             business_profile,
             customer_data
         )
-        
+
         # In a real implementation, we would store this interaction
         # and potentially notify the business
-        
+
         return personalized_content
 
 
 def run_demo():
     """Run a demonstration of the lead magnet platform."""
-    # Initialize platform
+    # Initialize the AI agent
+    agent = ConversationalAssessmentAgent()
+
+    # Initialize the business data dictionary
+    business_data = {}
+
+    # Start the conversation with the welcome message and first question
+    print(agent.start_conversation())
+
+    # Conduct the conversational assessment
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() in ["exit", "quit"]:
+            print("Goodbye!")
+            break
+
+        # Store user input in the business_data dictionary
+        if agent.conversation_stage == 1:
+            business_data["business_type"] = user_input
+        elif agent.conversation_stage == 2:
+            business_data["services"] = user_input
+        elif agent.conversation_stage == 3:
+            business_data["industry"] = user_input
+        elif agent.conversation_stage == 4:
+            business_data["ideal_customer"] = user_input
+        elif agent.conversation_stage == 5:
+            business_data["unique_selling_proposition"] = user_input
+        elif agent.conversation_stage == 6:
+            business_data["customer_pain_points"] = user_input
+
+        response = agent.ask_question(user_input)
+        print(f"AI: {response}")
+
+        # Exit the loop if the agent indicates the assessment is complete
+        if "tailored recommendations" in response.lower():
+            break
+
+    print("\nThank you! We've collected the following information about your business:")
+    for key, value in business_data.items():
+        print(f"- {key}: {value}")
+
+    # Initialize the platform
     platform = LeadMagnetPlatform()
-    
-    # Register a business
-    business_data = {
-        "business_name": "WebDesign Pro",
-        "business_type": "service",
-        "business_description": "A web design agency specializing in small business websites",
-        "industry": "web design",
-        "website": "https://webdesignpro.example.com",
-        "contact_email": "info@webdesignpro.example.com",
-        "brand_color": "#3366CC",
-        "logo_url": "https://webdesignpro.example.com/logo.png"
-    }
+
+    # Register the business
     business = platform.register_business(business_data)
-    print(f"Registered business: {business['name']} (ID: {business['id']})")
-    
+    print(f"\nRegistered business: {business['name']} (ID: {business['id']})")
+
     # Assess the business
     assessment_responses = {
         "business_type": "service",
@@ -313,14 +345,14 @@ def run_demo():
     }
     assessment_results = platform.assess_business(business["id"], assessment_responses)
     print(f"Assessment complete. Top recommendation: {assessment_results['recommendations'][0]['name']}")
-    
+
     # Create a lead magnet
     lead_magnet = platform.create_lead_magnet(
         business["id"],
         assessment_results["recommendations"][0]["id"]
     )
     print(f"Created lead magnet: {lead_magnet['template_name']} (ID: {lead_magnet['id']})")
-    
+
     # Deploy the lead magnet
     deployment = platform.deploy_lead_magnet(
         lead_magnet["id"],
@@ -331,11 +363,11 @@ def run_demo():
         }
     )
     print(f"Deployed lead magnet. Public URL: {deployment['public_url']}")
-    
+
     # Get installation guide
     installation_guide = platform.get_installation_guide(lead_magnet["id"])
     print(f"Generated installation guide with {len(installation_guide['options'])} options")
-    
+
     # Process a customer interaction
     customer_data = {
         "name": "John Smith",
@@ -345,7 +377,7 @@ def run_demo():
     }
     personalized_content = platform.process_customer_interaction(lead_magnet["id"], customer_data)
     print(f"Generated personalized content for customer: {customer_data['name']}")
-    
+
     # Save demo results to file
     demo_results = {
         "business": business,
@@ -355,12 +387,11 @@ def run_demo():
         "installation_guide": installation_guide,
         "personalized_content": personalized_content
     }
-    
+
     with open("demo_results.json", "w") as f:
         json.dump(demo_results, f, indent=2)
-    
-    print("Demo results saved to demo_results.json")
 
+    print("Demo results saved to demo_results.json")
 
 if __name__ == "__main__":
     run_demo()

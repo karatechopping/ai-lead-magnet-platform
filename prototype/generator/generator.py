@@ -12,11 +12,11 @@ from typing import Dict, List, Any, Optional
 
 class LeadMagnetTemplate:
     """Base class for lead magnet templates."""
-    
+
     def __init__(self, id: str, name: str, description: str, structure: Dict[str, Any]):
         """
         Initialize a lead magnet template.
-        
+
         Args:
             id: Unique identifier for this template
             name: Display name of the template
@@ -27,7 +27,7 @@ class LeadMagnetTemplate:
         self.name = name
         self.description = description
         self.structure = structure
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert template to dictionary representation."""
         return {
@@ -37,16 +37,16 @@ class LeadMagnetTemplate:
             "structure": self.structure,
             "type": self.__class__.__name__
         }
-    
-    def generate(self, business_profile: Dict[str, Any], 
+
+    def generate(self, business_profile: Dict[str, Any],
                 customer_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
         Generate a lead magnet based on this template.
-        
+
         Args:
             business_profile: Dictionary containing business information
             customer_data: Optional dictionary containing customer-specific data
-            
+
         Returns:
             Dictionary containing the generated lead magnet
         """
@@ -62,14 +62,14 @@ class LeadMagnetTemplate:
 
 class AssessmentTemplate(LeadMagnetTemplate):
     """Template for interactive assessment lead magnets."""
-    
-    def __init__(self, id: str, name: str, description: str, 
-                 questions: List[Dict[str, Any]], 
+
+    def __init__(self, id: str, name: str, description: str,
+                 questions: List[Dict[str, Any]],
                  result_categories: List[Dict[str, Any]],
                  structure: Optional[Dict[str, Any]] = None):
         """
         Initialize an assessment template.
-        
+
         Args:
             id: Unique identifier for this template
             name: Display name of the template
@@ -84,24 +84,24 @@ class AssessmentTemplate(LeadMagnetTemplate):
             "result_categories": result_categories
         })
         super().__init__(id, name, description, structure)
-    
-    def generate(self, business_profile: Dict[str, Any], 
+
+    def generate(self, business_profile: Dict[str, Any],
                 customer_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Generate an assessment lead magnet."""
         customer_data = customer_data or {}
-        
+
         # Personalize questions for the business
         personalized_questions = self._personalize_questions(
-            self.structure["questions"], 
+            self.structure["questions"],
             business_profile
         )
-        
+
         # Personalize result categories for the business
         personalized_results = self._personalize_result_categories(
-            self.structure["result_categories"], 
+            self.structure["result_categories"],
             business_profile
         )
-        
+
         # Create the assessment content
         assessment = {
             "template_id": self.id,
@@ -118,34 +118,34 @@ class AssessmentTemplate(LeadMagnetTemplate):
                 "font": business_profile.get("brand_font", "Arial, sans-serif")
             }
         }
-        
+
         # If customer data is provided, pre-fill some fields
         if customer_data:
             assessment["customer_name"] = customer_data.get("name", "")
             assessment["customer_email"] = customer_data.get("email", "")
             # Add any other customer-specific customizations here
-        
+
         return assessment
-    
-    def _personalize_questions(self, questions: List[Dict[str, Any]], 
+
+    def _personalize_questions(self, questions: List[Dict[str, Any]],
                               business_profile: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Personalize assessment questions for the business."""
         business_type = business_profile.get("business_type", "")
         business_name = business_profile.get("business_name", "our")
         industry = business_profile.get("industry", "your industry")
-        
+
         personalized_questions = []
         for question in questions:
             # Create a copy of the question to modify
             personalized_question = question.copy()
-            
+
             # Replace placeholders in the question text
             text = personalized_question["text"]
             text = text.replace("[BUSINESS_NAME]", business_name)
             text = text.replace("[INDUSTRY]", industry)
             text = text.replace("[BUSINESS_TYPE]", business_type)
             personalized_question["text"] = text
-            
+
             # Personalize options if present
             if "options" in personalized_question:
                 personalized_options = []
@@ -158,37 +158,37 @@ class AssessmentTemplate(LeadMagnetTemplate):
                     personalized_option["text"] = option_text
                     personalized_options.append(personalized_option)
                 personalized_question["options"] = personalized_options
-            
+
             personalized_questions.append(personalized_question)
-        
+
         return personalized_questions
-    
+
     def _personalize_result_categories(self, result_categories: List[Dict[str, Any]],
                                       business_profile: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Personalize result categories for the business."""
         business_type = business_profile.get("business_type", "")
         business_name = business_profile.get("business_name", "our")
         industry = business_profile.get("industry", "your industry")
-        
+
         personalized_categories = []
         for category in result_categories:
             # Create a copy of the category to modify
             personalized_category = category.copy()
-            
+
             # Replace placeholders in the title
             title = personalized_category["title"]
             title = title.replace("[BUSINESS_NAME]", business_name)
             title = title.replace("[INDUSTRY]", industry)
             title = title.replace("[BUSINESS_TYPE]", business_type)
             personalized_category["title"] = title
-            
+
             # Replace placeholders in the description
             description = personalized_category["description"]
             description = description.replace("[BUSINESS_NAME]", business_name)
             description = description.replace("[INDUSTRY]", industry)
             description = description.replace("[BUSINESS_TYPE]", business_type)
             personalized_category["description"] = description
-            
+
             # Replace placeholders in the recommendations
             if "recommendations" in personalized_category:
                 personalized_recommendations = []
@@ -198,16 +198,16 @@ class AssessmentTemplate(LeadMagnetTemplate):
                     personalized_recommendation = personalized_recommendation.replace("[BUSINESS_TYPE]", business_type)
                     personalized_recommendations.append(personalized_recommendation)
                 personalized_category["recommendations"] = personalized_recommendations
-            
+
             personalized_categories.append(personalized_category)
-        
+
         return personalized_categories
-    
+
     def _generate_title(self, business_profile: Dict[str, Any]) -> str:
         """Generate a personalized title for the assessment."""
         business_name = business_profile.get("business_name", "Our")
         industry = business_profile.get("industry", "")
-        
+
         if "website" in self.id.lower():
             return f"{business_name} Website Performance Assessment"
         elif "marketing" in self.id.lower():
@@ -216,25 +216,25 @@ class AssessmentTemplate(LeadMagnetTemplate):
             return f"{business_name} Financial Health Assessment"
         else:
             return f"{business_name} {industry} Assessment"
-    
+
     def _generate_introduction(self, business_profile: Dict[str, Any]) -> str:
         """Generate a personalized introduction for the assessment."""
         business_name = business_profile.get("business_name", "our")
         business_description = business_profile.get("business_description", "")
-        
+
         intro = f"Welcome to {business_name}'s assessment tool. "
-        
+
         if business_description:
             intro += f"As {business_description}, we understand the challenges you face. "
-        
+
         intro += "This assessment will help us understand your specific needs and provide personalized recommendations."
-        
+
         return intro
-    
+
     def _generate_call_to_action(self, business_profile: Dict[str, Any]) -> Dict[str, Any]:
         """Generate a personalized call to action."""
         business_name = business_profile.get("business_name", "us")
-        
+
         return {
             "heading": f"Ready to take the next step with {business_name}?",
             "button_text": "Contact Us Now",
@@ -244,7 +244,7 @@ class AssessmentTemplate(LeadMagnetTemplate):
 
 class CalculatorTemplate(LeadMagnetTemplate):
     """Template for calculator lead magnets."""
-    
+
     def __init__(self, id: str, name: str, description: str,
                  inputs: List[Dict[str, Any]],
                  calculations: Dict[str, str],
@@ -252,7 +252,7 @@ class CalculatorTemplate(LeadMagnetTemplate):
                  structure: Optional[Dict[str, Any]] = None):
         """
         Initialize a calculator template.
-        
+
         Args:
             id: Unique identifier for this template
             name: Display name of the template
@@ -269,24 +269,24 @@ class CalculatorTemplate(LeadMagnetTemplate):
             "results": results
         })
         super().__init__(id, name, description, structure)
-    
-    def generate(self, business_profile: Dict[str, Any], 
+
+    def generate(self, business_profile: Dict[str, Any],
                 customer_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Generate a calculator lead magnet."""
         customer_data = customer_data or {}
-        
+
         # Personalize inputs for the business
         personalized_inputs = self._personalize_inputs(
-            self.structure["inputs"], 
+            self.structure["inputs"],
             business_profile
         )
-        
+
         # Personalize results for the business
         personalized_results = self._personalize_results(
-            self.structure["results"], 
+            self.structure["results"],
             business_profile
         )
-        
+
         # Create the calculator content
         calculator = {
             "template_id": self.id,
@@ -304,39 +304,39 @@ class CalculatorTemplate(LeadMagnetTemplate):
                 "font": business_profile.get("brand_font", "Arial, sans-serif")
             }
         }
-        
+
         # If customer data is provided, pre-fill some fields
         if customer_data:
             calculator["customer_name"] = customer_data.get("name", "")
             calculator["customer_email"] = customer_data.get("email", "")
-            
+
             # Pre-fill input values if available
             for input_field in calculator["inputs"]:
                 field_id = input_field["id"]
                 if field_id in customer_data:
                     input_field["default_value"] = customer_data[field_id]
-        
+
         return calculator
-    
-    def _personalize_inputs(self, inputs: List[Dict[str, Any]], 
+
+    def _personalize_inputs(self, inputs: List[Dict[str, Any]],
                            business_profile: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Personalize calculator inputs for the business."""
         business_type = business_profile.get("business_type", "")
         business_name = business_profile.get("business_name", "our")
         industry = business_profile.get("industry", "your industry")
-        
+
         personalized_inputs = []
         for input_field in inputs:
             # Create a copy of the input to modify
             personalized_input = input_field.copy()
-            
+
             # Replace placeholders in the label
             label = personalized_input["label"]
             label = label.replace("[BUSINESS_NAME]", business_name)
             label = label.replace("[INDUSTRY]", industry)
             label = label.replace("[BUSINESS_TYPE]", business_type)
             personalized_input["label"] = label
-            
+
             # Replace placeholders in the help text if present
             if "help_text" in personalized_input:
                 help_text = personalized_input["help_text"]
@@ -344,30 +344,30 @@ class CalculatorTemplate(LeadMagnetTemplate):
                 help_text = help_text.replace("[INDUSTRY]", industry)
                 help_text = help_text.replace("[BUSINESS_TYPE]", business_type)
                 personalized_input["help_text"] = help_text
-            
+
             personalized_inputs.append(personalized_input)
-        
+
         return personalized_inputs
-    
+
     def _personalize_results(self, results: List[Dict[str, Any]],
                             business_profile: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Personalize calculator results for the business."""
         business_type = business_profile.get("business_type", "")
         business_name = business_profile.get("business_name", "our")
         industry = business_profile.get("industry", "your industry")
-        
+
         personalized_results = []
         for result in results:
             # Create a copy of the result to modify
             personalized_result = result.copy()
-            
+
             # Replace placeholders in the label
             label = personalized_result["label"]
             label = label.replace("[BUSINESS_NAME]", business_name)
             label = label.replace("[INDUSTRY]", industry)
             label = label.replace("[BUSINESS_TYPE]", business_type)
             personalized_result["label"] = label
-            
+
             # Replace placeholders in the description if present
             if "description" in personalized_result:
                 description = personalized_result["description"]
@@ -375,15 +375,15 @@ class CalculatorTemplate(LeadMagnetTemplate):
                 description = description.replace("[INDUSTRY]", industry)
                 description = description.replace("[BUSINESS_TYPE]", business_type)
                 personalized_result["description"] = description
-            
+
             personalized_results.append(personalized_result)
-        
+
         return personalized_results
-    
+
     def _generate_title(self, business_profile: Dict[str, Any]) -> str:
         """Generate a personalized title for the calculator."""
         business_name = business_profile.get("business_name", "Our")
-        
+
         if "roi" in self.id.lower():
             return f"{business_name} ROI Calculator"
         elif "savings" in self.id.lower():
@@ -392,25 +392,25 @@ class CalculatorTemplate(LeadMagnetTemplate):
             return f"{business_name} Cost Calculator"
         else:
             return f"{business_name} Value Calculator"
-    
+
     def _generate_introduction(self, business_profile: Dict[str, Any]) -> str:
         """Generate a personalized introduction for the calculator."""
         business_name = business_profile.get("business_name", "our")
         business_description = business_profile.get("business_description", "")
-        
+
         intro = f"Welcome to {business_name}'s calculator tool. "
-        
+
         if business_description:
             intro += f"As {business_description}, we understand the importance of making informed decisions. "
-        
+
         intro += "This calculator will help you quantify the potential value and make the right choice for your needs."
-        
+
         return intro
-    
+
     def _generate_call_to_action(self, business_profile: Dict[str, Any]) -> Dict[str, Any]:
         """Generate a personalized call to action."""
         business_name = business_profile.get("business_name", "us")
-        
+
         return {
             "heading": f"Ready to realize these benefits with {business_name}?",
             "button_text": "Contact Us Now",
@@ -421,36 +421,36 @@ class CalculatorTemplate(LeadMagnetTemplate):
 class LeadMagnetGenerator:
     """
     Generator that creates customized lead magnets based on templates.
-    
+
     This generator uses templates and business/customer data to create
     personalized lead magnets.
     """
-    
+
     def __init__(self, templates: Optional[List[LeadMagnetTemplate]] = None):
         """
         Initialize the lead magnet generator.
-        
+
         Args:
             templates: Optional list of lead magnet templates to use
         """
         self.templates = templates or []
-    
+
     def add_template(self, template: LeadMagnetTemplate) -> None:
         """
         Add a template to the generator.
-        
+
         Args:
             template: LeadMagnetTemplate object to add
         """
         self.templates.append(template)
-    
+
     def get_template_by_id(self, template_id: str) -> Optional[LeadMagnetTemplate]:
         """
         Get a template by its ID.
-        
+
         Args:
             template_id: ID of the template to retrieve
-            
+
         Returns:
             LeadMagnetTemplate if found, None otherwise
         """
@@ -458,71 +458,71 @@ class LeadMagnetGenerator:
             if template.id == template_id:
                 return template
         return None
-    
+
     def get_templates_by_type(self, lead_magnet_type: str) -> List[LeadMagnetTemplate]:
         """
         Get all templates matching a lead magnet type.
-        
+
         Args:
             lead_magnet_type: Type of lead magnet to filter by
-            
+
         Returns:
             List of matching LeadMagnetTemplate objects
         """
         return [t for t in self.templates if lead_magnet_type.lower() in t.id.lower()]
-    
+
     def generate_lead_magnet(self, template_id: str, business_profile: Dict[str, Any],
                             customer_data: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
         """
         Generate a lead magnet using the specified template.
-        
+
         Args:
             template_id: ID of the template to use
             business_profile: Dictionary containing business information
             customer_data: Optional dictionary containing customer-specific data
-            
+
         Returns:
             Dictionary containing the generated lead magnet, or None if template not found
         """
         template = self.get_template_by_id(template_id)
         if not template:
             return None
-        
+
         return template.generate(business_profile, customer_data)
-    
+
     def recommend_and_generate(self, lead_magnet_type: str, business_profile: Dict[str, Any],
                               customer_data: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
         """
         Recommend and generate a lead magnet based on the lead magnet type.
-        
+
         Args:
             lead_magnet_type: Type of lead magnet to generate
             business_profile: Dictionary containing business information
             customer_data: Optional dictionary containing customer-specific data
-            
+
         Returns:
             Dictionary containing the generated lead magnet, or None if no suitable template
         """
         matching_templates = self.get_templates_by_type(lead_magnet_type)
         if not matching_templates:
             return None
-        
+
         # For now, just use the first matching template
         # In a more sophisticated version, we could score templates based on fit
         template = matching_templates[0]
-        
+
         return template.generate(business_profile, customer_data)
 
 
 def create_default_templates() -> List[LeadMagnetTemplate]:
     """
     Create a default set of lead magnet templates.
-    
+
     Returns:
         List of LeadMagnetTemplate objects
     """
     templates = []
-    
+
     # Website Assessment Template
     website_assessment = AssessmentTemplate(
         id="website_performance_assessment",
@@ -631,7 +631,7 @@ def create_default_templates() -> List[LeadMagnetTemplate]:
         ]
     )
     templates.append(website_assessment)
-    
+
     # ROI Calculator Template
     roi_calculator = CalculatorTemplate(
         id="roi_calculator",
@@ -714,14 +714,51 @@ def create_default_templates() -> List[LeadMagnetTemplate]:
         ]
     )
     templates.append(roi_calculator)
-    
-    return templates
 
+    # Add the interactive assessment template
+    interactive_assessment = AssessmentTemplate(
+        id="interactive_assessment",
+        name="Interactive Assessment Tool",
+        description="An interactive tool to assess customer needs and provide tailored recommendations.",
+        questions=[
+            {
+                "id": "customer_needs",
+                "text": "What are your customers' primary needs?",
+                "type": "open_text",
+            },
+            {
+                "id": "business_goals",
+                "text": "What are your primary business goals?",
+                "type": "multiple_choice",
+                "options": [
+                    {"value": "increase_sales", "text": "Increase sales"},
+                    {"value": "generate_leads", "text": "Generate leads"},
+                    {"value": "improve_engagement", "text": "Improve engagement"},
+                ],
+            },
+        ],
+        result_categories=[
+            {
+                "id": "growth_opportunity",
+                "title": "Growth Opportunity Identified",
+                "description": "Based on your responses, we have identified key areas for growth and improvement.",
+                "recommendations": [
+                    "Focus on improving customer engagement strategies.",
+                    "Develop a targeted lead generation campaign.",
+                    "Optimize your sales funnel for better conversions."
+                ]
+            }
+        ]
+    )
+    templates.append(interactive_assessment)
+
+    # Return the list of templates
+    return templates
 
 if __name__ == "__main__":
     # Example usage
     generator = LeadMagnetGenerator(create_default_templates())
-    
+
     # Sample business profile
     business_profile = {
         "business_name": "WebDesign Pro",
@@ -731,12 +768,12 @@ if __name__ == "__main__":
         "brand_color": "#3366CC",
         "logo_url": "https://example.com/logo.png"
     }
-    
+
     # Generate a website assessment lead magnet
     lead_magnet = generator.generate_lead_magnet(
-        "website_performance_assessment", 
+        "website_performance_assessment",
         business_profile
     )
-    
+
     # Print the generated lead magnet
     print(json.dumps(lead_magnet, indent=2))

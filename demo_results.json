@@ -1,0 +1,417 @@
+{
+  "business": {
+    "id": "bus_1",
+    "name": "",
+    "type": "ai agency for small business",
+    "description": "",
+    "industry": "all sorts but mostly services - office based, not trades",
+    "website": "",
+    "contact_email": "",
+    "brand_color": "#4A90E2",
+    "logo_url": "",
+    "created_at": "2025-03-20T12:00:00Z",
+    "lead_magnets": [
+      "lm_1"
+    ],
+    "assessment_results": {
+      "business_profile": {
+        "business_type": "service",
+        "business_size": "small",
+        "business_description": "Web design agency specializing in small business websites",
+        "target_audience": "b2b_small"
+      },
+      "customer_needs": {
+        "pain_points": [
+          "knowledge",
+          "complexity",
+          "quality"
+        ],
+        "sales_cycle_length": 3,
+        "common_questions": "How much will it cost? How long will it take? Will I be able to update it myself?"
+      },
+      "technical_capability": {
+        "website_platform": "wordpress",
+        "technical_resources": "internal",
+        "tech_comfort": 4
+      },
+      "marketing_goals": {
+        "primary_goals": [
+          "leads",
+          "authority",
+          "conversion"
+        ],
+        "lead_quality_importance": 4
+      },
+      "recommendations": [
+        {
+          "id": "interactive_assessment",
+          "name": "Interactive Assessment Tool",
+          "description": "An interactive tool that evaluates the user's current situation and provides personalized recommendations.",
+          "score": 8.0,
+          "fit_analysis": {
+            "strengths": [
+              "Well-suited for your business type",
+              "Addresses key customer pain points: knowledge, complexity",
+              "Matches your technical capabilities"
+            ],
+            "potential_issues": []
+          },
+          "example": "A website performance analyzer that evaluates loading speed, mobile optimization, and provides specific improvement recommendations."
+        },
+        {
+          "id": "personalized_plan",
+          "name": "Personalized Plan Generator",
+          "description": "A tool that creates a custom plan or roadmap based on the user's specific situation.",
+          "score": 8.0,
+          "fit_analysis": {
+            "strengths": [
+              "Well-suited for your business type",
+              "Addresses key customer pain points: knowledge, complexity",
+              "Matches your technical capabilities"
+            ],
+            "potential_issues": []
+          },
+          "example": "A marketing plan generator that creates a customized strategy based on business goals, target audience, and budget."
+        },
+        {
+          "id": "diagnostic_tool",
+          "name": "Problem Diagnostic Tool",
+          "description": "A tool that helps users identify and diagnose specific problems or issues they're facing.",
+          "score": 8.0,
+          "fit_analysis": {
+            "strengths": [
+              "Well-suited for your business type",
+              "Addresses key customer pain points: knowledge, complexity",
+              "Matches your technical capabilities"
+            ],
+            "potential_issues": []
+          },
+          "example": "A home plumbing diagnostic tool that helps identify potential issues based on symptoms and provides recommendations."
+        }
+      ]
+    }
+  },
+  "assessment_results": {
+    "business_profile": {
+      "business_type": "service",
+      "business_size": "small",
+      "business_description": "Web design agency specializing in small business websites",
+      "target_audience": "b2b_small"
+    },
+    "customer_needs": {
+      "pain_points": [
+        "knowledge",
+        "complexity",
+        "quality"
+      ],
+      "sales_cycle_length": 3,
+      "common_questions": "How much will it cost? How long will it take? Will I be able to update it myself?"
+    },
+    "technical_capability": {
+      "website_platform": "wordpress",
+      "technical_resources": "internal",
+      "tech_comfort": 4
+    },
+    "marketing_goals": {
+      "primary_goals": [
+        "leads",
+        "authority",
+        "conversion"
+      ],
+      "lead_quality_importance": 4
+    },
+    "recommendations": [
+      {
+        "id": "interactive_assessment",
+        "name": "Interactive Assessment Tool",
+        "description": "An interactive tool that evaluates the user's current situation and provides personalized recommendations.",
+        "score": 8.0,
+        "fit_analysis": {
+          "strengths": [
+            "Well-suited for your business type",
+            "Addresses key customer pain points: knowledge, complexity",
+            "Matches your technical capabilities"
+          ],
+          "potential_issues": []
+        },
+        "example": "A website performance analyzer that evaluates loading speed, mobile optimization, and provides specific improvement recommendations."
+      },
+      {
+        "id": "personalized_plan",
+        "name": "Personalized Plan Generator",
+        "description": "A tool that creates a custom plan or roadmap based on the user's specific situation.",
+        "score": 8.0,
+        "fit_analysis": {
+          "strengths": [
+            "Well-suited for your business type",
+            "Addresses key customer pain points: knowledge, complexity",
+            "Matches your technical capabilities"
+          ],
+          "potential_issues": []
+        },
+        "example": "A marketing plan generator that creates a customized strategy based on business goals, target audience, and budget."
+      },
+      {
+        "id": "diagnostic_tool",
+        "name": "Problem Diagnostic Tool",
+        "description": "A tool that helps users identify and diagnose specific problems or issues they're facing.",
+        "score": 8.0,
+        "fit_analysis": {
+          "strengths": [
+            "Well-suited for your business type",
+            "Addresses key customer pain points: knowledge, complexity",
+            "Matches your technical capabilities"
+          ],
+          "potential_issues": []
+        },
+        "example": "A home plumbing diagnostic tool that helps identify potential issues based on symptoms and provides recommendations."
+      }
+    ]
+  },
+  "lead_magnet": {
+    "template_id": "interactive_assessment",
+    "template_name": "Interactive Assessment Tool",
+    "business_name": "",
+    "title": " all sorts but mostly services - office based, not trades Assessment",
+    "introduction": "Welcome to 's assessment tool. This assessment will help us understand your specific needs and provide personalized recommendations.",
+    "questions": [
+      {
+        "id": "customer_needs",
+        "text": "What are your customers' primary needs?",
+        "type": "open_text"
+      },
+      {
+        "id": "business_goals",
+        "text": "What are your primary business goals?",
+        "type": "multiple_choice",
+        "options": [
+          {
+            "value": "increase_sales",
+            "text": "Increase sales"
+          },
+          {
+            "value": "generate_leads",
+            "text": "Generate leads"
+          },
+          {
+            "value": "improve_engagement",
+            "text": "Improve engagement"
+          }
+        ]
+      }
+    ],
+    "result_categories": [
+      {
+        "id": "growth_opportunity",
+        "title": "Growth Opportunity Identified",
+        "description": "Based on your responses, we have identified key areas for growth and improvement.",
+        "recommendations": [
+          "Focus on improving customer engagement strategies.",
+          "Develop a targeted lead generation campaign.",
+          "Optimize your sales funnel for better conversions."
+        ]
+      }
+    ],
+    "call_to_action": {
+      "heading": "Ready to take the next step with ?",
+      "button_text": "Contact Us Now",
+      "description": "Get personalized assistance based on your assessment results."
+    },
+    "branding": {
+      "primary_color": "#4A90E2",
+      "logo_url": "",
+      "font": "Arial, sans-serif"
+    },
+    "id": "lm_1",
+    "business_id": "bus_1",
+    "created_at": "2025-03-20T12:00:00Z",
+    "deployment": {
+      "id": "dep_lm_1_bus_1",
+      "lead_magnet_id": "lm_1",
+      "business_id": "bus_1",
+      "settings": {
+        "active": true,
+        "collect_email": true,
+        "redirect_url": "",
+        "custom_css": "",
+        "theme": "light",
+        "button_text": "Take Assessment",
+        "button_color": "#3366CC",
+        "thank_you_message": "Thank you for completing this assessment!"
+      },
+      "embed_codes": {
+        "inline": {
+          "iframe": "<iframe src=\"https://leadmagnet.example.com/embed/lm_1?business=bus_1&theme=light&button_text=Take Assessment&button_color=#3366CC\" width=\"100%\" height=\"600px\" frameborder=\"0\" allowtransparency=\"true\"></iframe>",
+          "javascript": "",
+          "wordpress": "[leadmagnet id=\"lm_1\" business=\"bus_1\" theme=\"light\" button_text=\"Take Assessment\" button_color=\"#3366CC\"]",
+          "options": {
+            "width": "100%",
+            "height": "600px",
+            "theme": "light",
+            "button_text": "Take Assessment",
+            "button_color": "#3366CC",
+            "modal": false
+          },
+          "preview_url": "https://leadmagnet.example.com/preview/lm_1?business=bus_1"
+        },
+        "modal": {
+          "iframe": "<iframe src=\"https://leadmagnet.example.com/embed/lm_1?business=bus_1&theme=light&button_text=Take Assessment&button_color=#3366CC\" width=\"100%\" height=\"600px\" frameborder=\"0\" allowtransparency=\"true\"></iframe>",
+          "javascript": "\n<script src=\"https://leadmagnet.example.com/js/leadmagnet-embed.js\"></script>\n<script>\n  LeadMagnet.init({\n    lead_magnet_id: \"lm_1\",\n    business_id: \"bus_1\",\n    button_text: \"Take Assessment\",\n    button_color: \"#3366CC\",\n    theme: \"light\"\n  });\n</script>\n<button onclick=\"LeadMagnet.open()\">Take Assessment</button>\n",
+          "wordpress": "[leadmagnet id=\"lm_1\" business=\"bus_1\" theme=\"light\" button_text=\"Take Assessment\" button_color=\"#3366CC\"]",
+          "options": {
+            "width": "100%",
+            "height": "600px",
+            "theme": "light",
+            "button_text": "Take Assessment",
+            "button_color": "#3366CC",
+            "modal": true
+          },
+          "preview_url": "https://leadmagnet.example.com/preview/lm_1?business=bus_1"
+        }
+      },
+      "status": "active",
+      "created_at": "2025-03-20T12:00:00Z",
+      "updated_at": "2025-03-20T12:00:00Z",
+      "public_url": "https://leadmagnet.example.com/public/lm_1?business=bus_1"
+    }
+  },
+  "deployment": {
+    "id": "dep_lm_1_bus_1",
+    "lead_magnet_id": "lm_1",
+    "business_id": "bus_1",
+    "settings": {
+      "active": true,
+      "collect_email": true,
+      "redirect_url": "",
+      "custom_css": "",
+      "theme": "light",
+      "button_text": "Take Assessment",
+      "button_color": "#3366CC",
+      "thank_you_message": "Thank you for completing this assessment!"
+    },
+    "embed_codes": {
+      "inline": {
+        "iframe": "<iframe src=\"https://leadmagnet.example.com/embed/lm_1?business=bus_1&theme=light&button_text=Take Assessment&button_color=#3366CC\" width=\"100%\" height=\"600px\" frameborder=\"0\" allowtransparency=\"true\"></iframe>",
+        "javascript": "",
+        "wordpress": "[leadmagnet id=\"lm_1\" business=\"bus_1\" theme=\"light\" button_text=\"Take Assessment\" button_color=\"#3366CC\"]",
+        "options": {
+          "width": "100%",
+          "height": "600px",
+          "theme": "light",
+          "button_text": "Take Assessment",
+          "button_color": "#3366CC",
+          "modal": false
+        },
+        "preview_url": "https://leadmagnet.example.com/preview/lm_1?business=bus_1"
+      },
+      "modal": {
+        "iframe": "<iframe src=\"https://leadmagnet.example.com/embed/lm_1?business=bus_1&theme=light&button_text=Take Assessment&button_color=#3366CC\" width=\"100%\" height=\"600px\" frameborder=\"0\" allowtransparency=\"true\"></iframe>",
+        "javascript": "\n<script src=\"https://leadmagnet.example.com/js/leadmagnet-embed.js\"></script>\n<script>\n  LeadMagnet.init({\n    lead_magnet_id: \"lm_1\",\n    business_id: \"bus_1\",\n    button_text: \"Take Assessment\",\n    button_color: \"#3366CC\",\n    theme: \"light\"\n  });\n</script>\n<button onclick=\"LeadMagnet.open()\">Take Assessment</button>\n",
+        "wordpress": "[leadmagnet id=\"lm_1\" business=\"bus_1\" theme=\"light\" button_text=\"Take Assessment\" button_color=\"#3366CC\"]",
+        "options": {
+          "width": "100%",
+          "height": "600px",
+          "theme": "light",
+          "button_text": "Take Assessment",
+          "button_color": "#3366CC",
+          "modal": true
+        },
+        "preview_url": "https://leadmagnet.example.com/preview/lm_1?business=bus_1"
+      }
+    },
+    "status": "active",
+    "created_at": "2025-03-20T12:00:00Z",
+    "updated_at": "2025-03-20T12:00:00Z",
+    "public_url": "https://leadmagnet.example.com/public/lm_1?business=bus_1"
+  },
+  "installation_guide": {
+    "title": "Installation Guide",
+    "description": "Follow these steps to add your lead magnet to your website:",
+    "options": [
+      {
+        "title": "Option 1: Embed directly in your page",
+        "description": "Copy and paste this code into your HTML where you want the lead magnet to appear:",
+        "code": "<iframe src=\"https://leadmagnet.example.com/embed/lm_1?business=bus_1&theme=light&button_text=Take Assessment&button_color=#3366CC\" width=\"100%\" height=\"600px\" frameborder=\"0\" allowtransparency=\"true\"></iframe>",
+        "difficulty": "easy"
+      },
+      {
+        "title": "Option 2: Add as a popup/modal",
+        "description": "Copy and paste this code into your HTML to add a button that opens the lead magnet in a popup:",
+        "code": "\n<script src=\"https://leadmagnet.example.com/js/leadmagnet-embed.js\"></script>\n<script>\n  LeadMagnet.init({\n    lead_magnet_id: \"lm_1\",\n    business_id: \"bus_1\",\n    button_text: \"Take Assessment\",\n    button_color: \"#3366CC\",\n    theme: \"light\"\n  });\n</script>\n<button onclick=\"LeadMagnet.open()\">Take Assessment</button>\n",
+        "difficulty": "medium"
+      },
+      {
+        "title": "Option 3: WordPress Shortcode",
+        "description": "If you're using WordPress, add this shortcode to any page or post:",
+        "code": "[leadmagnet id=\"lm_1\" business=\"bus_1\" theme=\"light\" button_text=\"Take Assessment\" button_color=\"#3366CC\"]",
+        "difficulty": "easy"
+      }
+    ],
+    "testing": {
+      "title": "Testing Your Lead Magnet",
+      "steps": [
+        "After installation, visit your page to ensure the lead magnet appears correctly.",
+        "You can preview your lead magnet directly at: https://leadmagnet.example.com/public/lm_1?business=bus_1",
+        "Complete the lead magnet yourself to test the user experience.",
+        "Check your dashboard to confirm that test submissions are being recorded."
+      ]
+    }
+  },
+  "personalized_content": {
+    "template_id": "interactive_assessment",
+    "template_name": "Interactive Assessment Tool",
+    "business_name": "",
+    "title": " all sorts but mostly services - office based, not trades Assessment",
+    "introduction": "Welcome to 's assessment tool. This assessment will help us understand your specific needs and provide personalized recommendations.",
+    "questions": [
+      {
+        "id": "customer_needs",
+        "text": "What are your customers' primary needs?",
+        "type": "open_text"
+      },
+      {
+        "id": "business_goals",
+        "text": "What are your primary business goals?",
+        "type": "multiple_choice",
+        "options": [
+          {
+            "value": "increase_sales",
+            "text": "Increase sales"
+          },
+          {
+            "value": "generate_leads",
+            "text": "Generate leads"
+          },
+          {
+            "value": "improve_engagement",
+            "text": "Improve engagement"
+          }
+        ]
+      }
+    ],
+    "result_categories": [
+      {
+        "id": "growth_opportunity",
+        "title": "Growth Opportunity Identified",
+        "description": "Based on your responses, we have identified key areas for growth and improvement.",
+        "recommendations": [
+          "Focus on improving customer engagement strategies.",
+          "Develop a targeted lead generation campaign.",
+          "Optimize your sales funnel for better conversions."
+        ]
+      }
+    ],
+    "call_to_action": {
+      "heading": "Ready to take the next step with ?",
+      "button_text": "Contact Us Now",
+      "description": "Get personalized assistance based on your assessment results."
+    },
+    "branding": {
+      "primary_color": "#4A90E2",
+      "logo_url": "",
+      "font": "Arial, sans-serif"
+    },
+    "customer_name": "John Smith",
+    "customer_email": "john@example.com"
+  }
+}
